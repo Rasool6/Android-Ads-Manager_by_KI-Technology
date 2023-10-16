@@ -7,15 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import com.example.adsmanager_androidkoltin.R
-import com.example.adsmanager_androidkoltin.databinding.FragmentSecondBinding
-import com.example.adsmanager_androidkoltin.extentions.findNavControllerOrThrow
+import com.example.adsmanager_androidkoltin.ads.interfaces.NativeAdCallBack
+import com.example.adsmanager_androidkoltin.ads.utils.enums.NativeType
+import com.example.adsmanager_androidkoltin.databinding.FragmentNativeAdBinding
+ import com.example.adsmanager_androidkoltin.extentions.findNavControllerOrThrow
 import com.example.adsmanager_androidkoltin.extentions.findNavHostFragment
 import com.example.adsmanager_androidkoltin.koin.DIComponent
+import com.example.adsmanager_androidkoltin.koin.DIComponent.internetManager
 
 
-class SecondFragment : Fragment() {
+class NativeAdFragment : Fragment() {
 
-    private var bindingSecond: FragmentSecondBinding?=null
+    private var bindingSecond: FragmentNativeAdBinding?=null
     private val binding get() = bindingSecond!!
 
     private var navController : NavController?=null
@@ -32,13 +35,14 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        bindingSecond= FragmentSecondBinding .inflate(inflater, container, false)
+        bindingSecond= FragmentNativeAdBinding .inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initWork()
+        loadAds()
         binding.btn.setOnClickListener {
             DIComponent.interstitialViewModel.backToPreviousFragment(navController,R.id.secondFragment,requireContext())
         }
@@ -51,4 +55,26 @@ class SecondFragment : Fragment() {
         navController = requireActivity().findNavControllerOrThrow(R.id.fragmentContainerView)
     }
 
+
+    private fun loadAds() {
+        DIComponent.admobNativeAds.loadNativeAds(
+            requireActivity(),
+            binding.adsPlaceHolder,
+            requireActivity().getString(R.string.admob_native_home_ids),
+            1,
+          false,//  diComponent.sharedPreferenceUtils.isAppPurchased,
+            internetManager.isInternetConnected,
+            NativeType.SMALL,
+            object : NativeAdCallBack {
+                override fun onAdFailedToLoad(adError: String) {}
+                override fun onAdLoaded() {}
+                override fun onAdImpression() {}
+                override fun onPreloaded() {}
+                override fun onAdClicked() {}
+                override fun onAdClosed() {}
+                override fun onAdOpened() {}
+                override fun onAdSwipeGestureClicked() {}
+            }
+        )
+    }
  }

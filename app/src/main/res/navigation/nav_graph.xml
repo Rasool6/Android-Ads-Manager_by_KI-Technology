@@ -13,7 +13,7 @@
         tools:layout="@layout/fragment_first" />
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.example.adsmanager_androidkoltin.ui.frg.SecondFragment"
+        android:name="com.example.adsmanager_androidkoltin.ui.frg.NativeAdFragment"
         android:label="fragment_second"
-        tools:layout="@layout/fragment_second" />
+        tools:layout="@layout/fragment_native_ad" />
 </navigation>

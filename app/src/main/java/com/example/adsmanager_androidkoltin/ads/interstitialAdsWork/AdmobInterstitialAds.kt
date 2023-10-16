@@ -97,11 +97,7 @@ class AdmobInterstitialAds {
         }
     }
 
-    fun showAndLoadInterstitialAd(
-        context: Context?,
-        admobInterstitialIds: String,
-        mListener: InterstitialOnShowCallBack
-    ) {
+    fun showAndLoadInterstitialAd(context: Context?, admobInterstitialIds: String, mListener: InterstitialOnShowCallBack) {
         context?.let { mContext ->
             if (DIComponent.internetManager.isInternetConnected && mInterstitialAd != null && admobInterstitialIds.isNotEmpty()) {
                 mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
