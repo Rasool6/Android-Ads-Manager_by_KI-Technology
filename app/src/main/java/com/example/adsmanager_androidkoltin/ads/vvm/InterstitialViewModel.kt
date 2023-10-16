@@ -4,12 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.FrameLayout
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.adsmanager_androidkoltin.R
 import com.example.adsmanager_androidkoltin.ads.Constants
+import com.example.adsmanager_androidkoltin.ads.interfaces.NativeAdCallBack
 import com.example.adsmanager_androidkoltin.ads.interstitialAdsWork.callbacks.InterstitialOnLoadCallBack
 import com.example.adsmanager_androidkoltin.ads.interstitialAdsWork.callbacks.InterstitialOnShowCallBack
+import com.example.adsmanager_androidkoltin.ads.utils.enums.NativeType
 import com.example.adsmanager_androidkoltin.koin.DIComponent
 
 class InterstitialViewModel( ) : ViewModel() {
@@ -221,4 +224,7 @@ class InterstitialViewModel( ) : ViewModel() {
             }
         )
     }
+
+//    native load
+
 }

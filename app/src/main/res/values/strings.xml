@@ -4,4 +4,13 @@
     <string name="hello_blank_fragment">Its Second Fragment</string>
     <string name="from_first_to_second">From First to Second Fragment</string>
     <string name="back">Back</string>
+
+
+    <string-array name="nativeTyp">
+         <item>BANNER</item>
+        <item>SMALL</item>
+        <item>LARGE</item>
+        <item>LARGE_ADJUSTED</item>
+        <item>FIX</item>
+    </string-array>
 </resources>
