@@ -2,10 +2,17 @@
 
 Android Ads Manager by KI Technology
 
-1)  Admob Interestitial ads
-2)  implemention done for next to Actiivty
-3)  implemention done for onBackPress Actiivty
-4)  implemention done for navigate to next fragment
-5)  implemention done for backToPreviouse  fragment
+  Admob Interestitial ads
+1)  implemention done for next to Actiivty
+2)  implemention done for onBackPress Actiivty
+3)  implemention done for navigate to next fragment
+4)  implemention done for backToPreviouse  fragment
+
+ Admob Native ads many layout types
+ 1) BANNER  
+ 2) SMALL
+ 3) LARGE
+ 4) LARGE_ADJUSTED
+ 5) FIX
 
 
