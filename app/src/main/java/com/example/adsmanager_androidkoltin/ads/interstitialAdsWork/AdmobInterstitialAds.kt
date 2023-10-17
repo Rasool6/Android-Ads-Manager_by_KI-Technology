@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import com.example.adsmanager_androidkoltin.ads.Constants.AD_TAG
+import com.example.adsmanager_androidkoltin.ads.Constants.isInterstitialIsOpen
 import com.example.adsmanager_androidkoltin.ads.Constants.isInterstitialLoading
 import com.example.adsmanager_androidkoltin.ads.Constants.mInterstitialAd
 import com.example.adsmanager_androidkoltin.ads.interstitialAdsWork.callbacks.InterstitialOnLoadCallBack
@@ -105,6 +106,7 @@ class AdmobInterstitialAds {
                         Log.d(AD_TAG, "admob Interstitial onAdDismissedFullScreenContent")
                         mListener.onAdDismissedFullScreenContent()
                         loadAgainInterstitialAd(mContext, admobInterstitialIds)
+                        isInterstitialIsOpen=false
                     }
 
                     override fun onAdFailedToShowFullScreenContent(adError: AdError) {
@@ -117,6 +119,7 @@ class AdmobInterstitialAds {
                         Log.d(AD_TAG, "admob Interstitial onAdShowedFullScreenContent")
                         mListener.onAdShowedFullScreenContent()
                         mInterstitialAd = null
+                        isInterstitialIsOpen=true
                     }
 
                     override fun onAdImpression() {

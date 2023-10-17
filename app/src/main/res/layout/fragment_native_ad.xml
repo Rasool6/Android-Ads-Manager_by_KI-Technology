@@ -31,7 +31,26 @@
         app:layout_constraintTop_toBottomOf="@+id/btn" />
 
     <FrameLayout
-        android:id="@+id/ads_place_holder"
+        android:id="@+id/nativeBannerAdFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="5dp"
+        android:background="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChange">
+
+        <include
+            layout="@layout/include_native_ad_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+ <FrameLayout
+        android:id="@+id/nativeAdFrame"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_260sdp"
         android:layout_marginHorizontal="5dp"
@@ -44,7 +63,7 @@
         >
 
         <include
-            layout="@layout/loading_ad"
+            layout="@layout/include_native_ad_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

@@ -18,7 +18,7 @@ android {
         minSdk 24
         targetSdk 34
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -107,6 +107,17 @@ dependencies {
 
     // required to avoid crash on Android 12 API 31
     implementation 'androidx.work:work-runtime-ktx:2.8.1'
+
+
+    //googleBilling Remove Ads
+    implementation 'com.github.hypersoftdev:inappbilling:1.1.6'
+    implementation('com.android.billingclient:billing:6.0.1')
+    //DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha01"
+    implementation "androidx.datastore:datastore-core:1.0.0-alpha01"
+
+    //app lifecycle for open ads
+    implementation 'androidx.lifecycle:lifecycle-process:2.6.2'
 
     // Admob ads
     implementation 'com.google.android.gms:play-services-ads:22.4.0'

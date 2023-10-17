@@ -44,7 +44,7 @@ class NativeAdFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initWork()
-       loadAds(NativeType.FIX)
+       loadAds(NativeType.FIX,binding.nativeBannerAdFrame)
         binding.btnChange.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -59,19 +59,19 @@ class NativeAdFragment : Fragment() {
                 Log.d("select", "onItemSelected: $selectedItem")
                 when (selectedItem) {
                     "BANNER" -> {
-                        loadAds(NativeType.BANNER)
+                        loadAds(NativeType.BANNER, binding.nativeAdFrame)
                     }
                     "SMALL" -> {
-                        loadAds(NativeType.SMALL)
+                        loadAds(NativeType.SMALL, binding.nativeAdFrame)
                     }
                     "LARGE" -> {
-                        loadAds(NativeType.LARGE)
+                        loadAds(NativeType.LARGE, binding.nativeAdFrame)
                     }
                     "LARGE_ADJUSTED" -> {
-                        loadAds(NativeType.LARGE_ADJUSTED)
+                        loadAds(NativeType.LARGE_ADJUSTED, binding.nativeAdFrame)
                     }
                     "FIX" -> {
-                        loadAds(NativeType.FIX)
+                        loadAds(NativeType.FIX, binding.nativeAdFrame)
                     }
                 }
             }
@@ -96,12 +96,12 @@ class NativeAdFragment : Fragment() {
         // Assign the NavController using the extension function, or throw an exception if not found
         navController = requireActivity().findNavControllerOrThrow(R.id.fragmentContainerView)
     }
-    fun loadAds(nativeAdType: NativeType) {
+    fun loadAds(nativeAdType: NativeType, nativeBannerAdFrame: FrameLayout) {
 
         Log.d("selectedType", "loadAds: $nativeAdType")
         DIComponent.admobNativeAds.loadNativeAds(
             requireActivity(),
-            binding.adsPlaceHolder,
+            nativeBannerAdFrame,
             getString(R.string.admob_native_home_ids),
             1,
             false,//  diComponent.sharedPreferenceUtils.isAppPurchased,

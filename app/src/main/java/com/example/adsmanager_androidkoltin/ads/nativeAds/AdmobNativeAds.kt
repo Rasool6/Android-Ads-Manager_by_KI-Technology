@@ -1,4 +1,4 @@
-package com.example.adsmanager_androidkoltin.ads
+package com.example.adsmanager_androidkoltin.ads.nativeAds
 
 import android.app.Activity
 import android.util.DisplayMetrics
