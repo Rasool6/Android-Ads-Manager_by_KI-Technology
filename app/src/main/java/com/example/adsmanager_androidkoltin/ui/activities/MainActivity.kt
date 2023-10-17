@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.adsmanager_androidkoltin.ads.Constants.ADS_TAG
 import com.example.adsmanager_androidkoltin.ads.Constants.checkShowAppOpenAd
+import com.example.adsmanager_androidkoltin.ads.Constants.isAdsPurchased
 import com.example.adsmanager_androidkoltin.ads.Constants.showAdSplashAdObserver
 import com.example.adsmanager_androidkoltin.ads.bannerAds.AdmobBannerAd
 import com.example.adsmanager_androidkoltin.ads.googleBilling.BillingPreferences
@@ -37,24 +38,17 @@ class MainActivity : AppCompatActivity() {
         bindingMain = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-// preLoading intrestial ads
-        DIComponent.interstitialViewModel.preLoadInterstitialAd(isLoadedCallBack = {
-           when (it) {
-                false -> {
-                    Log.d("varMsg", "Ad is not loaded")
-                }
-                true-> {
-                     Log.d("varMsg", "Ad is loaded")
-                }
-            }
 
-        },this)
+
+
         userPreferences = BillingPreferences(this)
         moveWithAfterSplashTime(splashDelay)
         appOpenSplashAdsObserver()
         loadBannerAd()
         initObserver()
         initBilling()
+        checkIfAdsIsPurchasedOrNot()
+        preLoadAdMobInterstitialAd()
 
 
 
@@ -63,11 +57,37 @@ class MainActivity : AppCompatActivity() {
             binding.btNext.visibility = View.VISIBLE
             binding.btNext.setOnClickListener {
 
-                DIComponent.interstitialViewModel.goToNextActivity(FirstActivity::class.java,this)
+                DIComponent.interstitialViewModel.goToNextActivity(FirstActivity::class.java, this)
                 onPurchaseClick()
             }
-          }, 9*1000)
+        }, 9 * 1000)
 
+    }
+
+    private fun checkIfAdsIsPurchasedOrNot() {
+        CoroutineScope(Dispatchers.Main).launch {
+            userPreferences.getAdsPurchaseBookmark.collect {
+                if (it != null) {
+                    isAdsPurchased = it
+                }
+            }
+        }
+    }
+
+    private fun preLoadAdMobInterstitialAd() {
+        // preLoading Interstitial ads
+        DIComponent.interstitialViewModel.preLoadInterstitialAd(isLoadedCallBack = {
+            when (it) {
+                false -> {
+                    Log.d("varMsg", "Ad is not loaded")
+                }
+
+                true -> {
+                    Log.d("varMsg", "Ad is loaded")
+                }
+            }
+
+        }, this@MainActivity)
     }
 
     private fun appOpenSplashAdsObserver() {
@@ -97,21 +117,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadBannerAd() {
-        CoroutineScope(Dispatchers.Main).launch {
-            userPreferences.getAdsPurchaseBookmark.collect {
-                if (it == false) {
-                    AdmobBannerAd.loadBannerAdMob(
-                        binding.bannerAd.adContainer,
-                        binding.bannerID,
-                        this@MainActivity
-                    )
-                } else {
-                    binding.bannerID.visibility = View.GONE
-                }
-            }
 
-
+        if (!isAdsPurchased) {
+            AdmobBannerAd.loadBannerAdMob(
+                binding.bannerAd.adContainer,
+                binding.bannerID,
+                this@MainActivity
+            )
+        } else {
+            binding.bannerID.visibility = View.GONE
         }
+
 
     }
 

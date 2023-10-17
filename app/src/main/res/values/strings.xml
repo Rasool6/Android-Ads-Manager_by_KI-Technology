@@ -8,10 +8,10 @@
 
 
     <string-array name="nativeTyp">
-         <item>BANNER</item>
-        <item>SMALL</item>
+        <item>FIX</item>
+         <item>SMALL</item>
         <item>LARGE</item>
         <item>LARGE_ADJUSTED</item>
-        <item>FIX</item>
+
     </string-array>
 </resources>

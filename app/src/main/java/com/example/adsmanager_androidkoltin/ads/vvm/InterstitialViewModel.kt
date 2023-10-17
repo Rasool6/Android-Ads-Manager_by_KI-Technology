@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.adsmanager_androidkoltin.R
 import com.example.adsmanager_androidkoltin.ads.Constants
+import com.example.adsmanager_androidkoltin.ads.Constants.isAdsPurchased
 import com.example.adsmanager_androidkoltin.ads.interfaces.NativeAdCallBack
 import com.example.adsmanager_androidkoltin.ads.interstitialAdsWork.callbacks.InterstitialOnLoadCallBack
 import com.example.adsmanager_androidkoltin.ads.interstitialAdsWork.callbacks.InterstitialOnShowCallBack
@@ -208,7 +209,7 @@ class InterstitialViewModel( ) : ViewModel() {
             context,
             context.getString(R.string.admob_inter_main_ids),
             1,
-            false, // diComponent.sharedPreferenceUtils.isAppPurchased,
+            isAdsPurchased, // diComponent.sharedPreferenceUtils.isAppPurchased,
              object : InterstitialOnLoadCallBack {
                 override fun onAdFailedToLoad(adError: String) {
                     isLoadedCallBack(false)

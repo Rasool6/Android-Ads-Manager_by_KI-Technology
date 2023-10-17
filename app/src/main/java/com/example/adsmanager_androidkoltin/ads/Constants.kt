@@ -19,6 +19,7 @@ object Constants {
 
 
     const val ADS_TAG = "AdsLog"
+    var isAdsPurchased = false
     const val IN_APP_PURCHASE_KEY= "InAppPurchase"
     var showAdSplashAdObserver: MutableLiveData<Boolean> = MutableLiveData()
     var checkShowAppOpenAd: Boolean = false

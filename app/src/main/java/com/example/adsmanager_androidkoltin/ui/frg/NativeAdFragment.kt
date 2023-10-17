@@ -10,6 +10,8 @@ import android.widget.AdapterView
 import android.widget.FrameLayout
 import androidx.navigation.NavController
 import com.example.adsmanager_androidkoltin.R
+import com.example.adsmanager_androidkoltin.ads.Constants
+import com.example.adsmanager_androidkoltin.ads.Constants.isAdsPurchased
 import com.example.adsmanager_androidkoltin.ads.interfaces.NativeAdCallBack
 import com.example.adsmanager_androidkoltin.ads.utils.enums.NativeType
 import com.example.adsmanager_androidkoltin.databinding.FragmentNativeAdBinding
@@ -58,9 +60,7 @@ class NativeAdFragment : Fragment() {
                 val selectedItem = binding.btnChange.getItemAtPosition(position).toString()
                 Log.d("select", "onItemSelected: $selectedItem")
                 when (selectedItem) {
-                    "BANNER" -> {
-                        loadAds(NativeType.BANNER, binding.nativeAdFrame)
-                    }
+
                     "SMALL" -> {
                         loadAds(NativeType.SMALL, binding.nativeAdFrame)
                     }
@@ -104,7 +104,7 @@ class NativeAdFragment : Fragment() {
             nativeBannerAdFrame,
             getString(R.string.admob_native_home_ids),
             1,
-            false,//  diComponent.sharedPreferenceUtils.isAppPurchased,
+             isAdsPurchased,
             DIComponent.internetManager.isInternetConnected,
             nativeAdType,
             object : NativeAdCallBack {
