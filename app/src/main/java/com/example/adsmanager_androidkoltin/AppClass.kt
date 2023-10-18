@@ -2,6 +2,8 @@ package com.example.adsmanager_androidkoltin
 
 import android.app.Application
 import android.util.Log
+import com.example.adsmanager_androidkoltin.ads.Constants
+import com.example.adsmanager_androidkoltin.ads.Constants.isAdsPurchased
 import com.example.adsmanager_androidkoltin.ads.googleBilling.BillingPreferences
 import com.example.adsmanager_androidkoltin.ads.openAds.AppOpenResumeAd
 import com.example.adsmanager_androidkoltin.ads.openAds.AppOpenSplash
@@ -16,23 +18,30 @@ import org.koin.core.context.startKoin
 
 class AppClass : Application() {
 
-    private var appOpenResumeAd : AppOpenResumeAd? =null
-    private  var billingPreference: BillingPreferences? =null
+    private var appOpenResumeAd: AppOpenResumeAd? = null
+    private var billingPreference: BillingPreferences? = null
     override fun onCreate() {
         super.onCreate()
         MobileAds.initialize(this) {}
         initKoin()
         initBilling()
+        checkIfAdsIsPurchasedOrNot()
         loadOpenAds()
-       // preLoadInterstitialAd();
+        // preLoadInterstitialAd();
     }
 
     private fun loadOpenAds() {
+        if (!isAdsPurchased) {
+            AppOpenSplash.loadAppOpenSplashAd(this@AppClass)
+            appOpenResumeAd?.loadAppOpenResumeAd(this@AppClass)
+        }
+    }
+
+    private fun checkIfAdsIsPurchasedOrNot() {
         CoroutineScope(Dispatchers.Main).launch {
-            billingPreference?.getAdsPurchaseBookmark?.collect{
-                if (it==false){
-                    AppOpenSplash.loadAppOpenSplashAd(this@AppClass)
-                    appOpenResumeAd?.loadAppOpenResumeAd(this@AppClass)
+            billingPreference?.getAdsPurchaseBookmark?.collect {
+                if (it != null) {
+                    isAdsPurchased = it
                 }
             }
         }
@@ -43,6 +52,7 @@ class AppClass : Application() {
         appOpenResumeAd = AppOpenResumeAd(this)
     }
 
+//    we can preLoadInterstitialAd
     private fun preLoadInterstitialAd() {
         DIComponent.interstitialViewModel.preLoadInterstitialAd(isLoadedCallBack = {
 
@@ -50,11 +60,12 @@ class AppClass : Application() {
                 false -> {
                     Log.d("varMsg", "Ad is not loaded")
                 }
-                true-> {
+
+                true -> {
                     Log.d("varMsg", "Ad is loaded")
                 }
             }
-        },this)
+        }, this)
     }
 
 

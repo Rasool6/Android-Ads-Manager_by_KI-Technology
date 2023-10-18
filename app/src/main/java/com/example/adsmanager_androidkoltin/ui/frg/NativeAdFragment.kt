@@ -60,7 +60,6 @@ class NativeAdFragment : Fragment() {
                 val selectedItem = binding.btnChange.getItemAtPosition(position).toString()
                 Log.d("select", "onItemSelected: $selectedItem")
                 when (selectedItem) {
-
                     "SMALL" -> {
                         loadAds(NativeType.SMALL, binding.nativeAdFrame)
                     }

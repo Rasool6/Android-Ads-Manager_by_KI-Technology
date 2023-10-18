@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         loadBannerAd()
         initObserver()
         initBilling()
-        checkIfAdsIsPurchasedOrNot()
+
         preLoadAdMobInterstitialAd()
 
 
@@ -64,15 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun checkIfAdsIsPurchasedOrNot() {
-        CoroutineScope(Dispatchers.Main).launch {
-            userPreferences.getAdsPurchaseBookmark.collect {
-                if (it != null) {
-                    isAdsPurchased = it
-                }
-            }
-        }
-    }
+
 
     private fun preLoadAdMobInterstitialAd() {
         // preLoading Interstitial ads
