@@ -2,10 +2,9 @@ package com.example.adsmanager_androidkoltin
 
 import android.app.Application
 import android.util.Log
-import com.example.adsmanager_androidkoltin.ads.Constants
 import com.example.adsmanager_androidkoltin.ads.Constants.isAdsPurchased
 import com.example.adsmanager_androidkoltin.ads.googleBilling.BillingPreferences
-import com.example.adsmanager_androidkoltin.ads.openAds.AppOpenResumeAd
+import com.example.adsmanager_androidkoltin.ads.openAds.AppOpenAdResume
 import com.example.adsmanager_androidkoltin.ads.openAds.AppOpenSplash
 import com.example.adsmanager_androidkoltin.koin.DIComponent
 import com.example.adsmanager_androidkoltin.koin.modulesList
@@ -18,7 +17,7 @@ import org.koin.core.context.startKoin
 
 class AppClass : Application() {
 
-    private var appOpenResumeAd: AppOpenResumeAd? = null
+    private var appOpenAdResume: AppOpenAdResume? = null
     private var billingPreference: BillingPreferences? = null
     override fun onCreate() {
         super.onCreate()
@@ -33,7 +32,7 @@ class AppClass : Application() {
     private fun loadOpenAds() {
         if (!isAdsPurchased) {
             AppOpenSplash.loadAppOpenSplashAd(this@AppClass)
-            appOpenResumeAd?.loadAppOpenResumeAd(this@AppClass)
+            appOpenAdResume?.loadAppOpenResumeAd(this@AppClass)
         }
     }
 
@@ -49,7 +48,7 @@ class AppClass : Application() {
 
     private fun initBilling() {
         billingPreference = BillingPreferences(this)
-        appOpenResumeAd = AppOpenResumeAd(this)
+        appOpenAdResume = AppOpenAdResume(this)
     }
 
 //    we can preLoadInterstitialAd
