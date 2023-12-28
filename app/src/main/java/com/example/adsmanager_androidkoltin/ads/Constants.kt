@@ -16,6 +16,7 @@ object Constants {
 //   NativeAd  //////////////////////////////////////////
     var adMobPreloadNativeAd: NativeAd? = null
     val AD_TAG = "interstitialAdLOG"
+    var visited = "firstTime"
 
 
     const val ADS_TAG = "AdsLog"

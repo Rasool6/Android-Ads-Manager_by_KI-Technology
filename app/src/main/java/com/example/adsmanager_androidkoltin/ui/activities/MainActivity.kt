@@ -1,5 +1,6 @@
 package com.example.adsmanager_androidkoltin.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -58,13 +59,11 @@ class MainActivity : AppCompatActivity() {
             binding.btNext.setOnClickListener {
 
                 DIComponent.interstitialViewModel.goToNextActivity(FirstActivity::class.java, this)
-                onPurchaseClick()
+                 onPurchaseClick()
             }
         }, 9 * 1000)
 
     }
-
-
 
     private fun preLoadAdMobInterstitialAd() {
         // preLoading Interstitial ads

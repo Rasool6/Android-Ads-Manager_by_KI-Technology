@@ -102,11 +102,7 @@ class AppOpenAdResume(appClass: AppClass) : LifecycleObserver, Application.Activ
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 // Called when fullscreen content failed to show.
                 // Set the reference to null so isAppOpenResumeAdAvailable() returns false.
-
-                Log.d(
-                    ADS_TAG,
-                    "AppOpenResumeAd onAdFailedToShowFullScreenContent $adError.message"
-                )
+                Log.d(ADS_TAG, "AppOpenResumeAd onAdFailedToShowFullScreenContent $adError.message")
                 appOpenResumeAd = null
                 isShowingAppOpenResumeAd = false
                 onShowAppOpenResumeAdCallback()

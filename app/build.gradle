@@ -52,6 +52,7 @@ android {
             resValue 'string', 'admob_banner_collapse_id', '"ca-app-pub-3940256099942544/2014213617"'
             resValue 'string', 'admob_open_app_ids', '"ca-app-pub-3940256099942544/3419835294"'
             resValue 'string', 'admob_app_id', '"ca-app-pub-3940256099942544~3347511713"'
+            resValue 'string', 'admob_banner_collapse_id', '"ca-app-pub-3940256099942544/2014213617"'
 
             minifyEnabled false
             shrinkResources false
@@ -120,5 +121,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-process:2.6.2'
 
     // Admob ads
-    implementation 'com.google.android.gms:play-services-ads:22.4.0'
+    implementation 'com.google.android.gms:play-services-ads:22.5.0'
+    //
+    implementation 'com.applovin:applovin-sdk:11.6.0'
+    implementation 'com.facebook.android:audience-network-sdk:6.11.0'
+    implementation 'com.applovin.mediation:facebook-adapter:6.8.0.7'
 }

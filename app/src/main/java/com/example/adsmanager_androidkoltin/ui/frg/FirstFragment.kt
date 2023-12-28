@@ -42,6 +42,9 @@ class FirstFragment : Fragment() {
 
         initWork()
 
+        binding.collapseBtb.setOnClickListener {
+            navController?.navigate(R.id.collapsBannerAdsFragment)
+        }
         binding.btn.setOnClickListener {
             DIComponent.interstitialViewModel.goToNextFragment(navController,R.id.secondFragment,requireContext())
         }

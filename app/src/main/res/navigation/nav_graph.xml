@@ -16,4 +16,9 @@
         android:name="com.example.adsmanager_androidkoltin.ui.frg.NativeAdFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_native_ad" />
+    <fragment
+        android:id="@+id/collapsBannerAdsFragment"
+        android:name="com.example.adsmanager_androidkoltin.ui.frg.CollapsBannerAdsFragment"
+        android:label="fragment_collaps_banner_ads"
+        tools:layout="@layout/fragment_collaps_banner_ads" />
 </navigation>
