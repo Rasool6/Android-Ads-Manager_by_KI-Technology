@@ -1,5 +1,6 @@
 package com.example.adsmanager_androidkoltin.koin
 
+import com.example.adsmanager_androidkoltin.ads.collapsballBanner.AdmobCollapseBannerAds
 import com.example.adsmanager_androidkoltin.ads.nativeAds.AdmobNativeAds
 import com.example.adsmanager_androidkoltin.ads.interstitialAdsWork.AdmobInterstitialAds
 import com.example.adsmanager_androidkoltin.ads.vvm.CollapseObserverViewModel
@@ -27,6 +28,8 @@ object DIComponent : KoinComponent {
  //  val admobPreLoadNativeAds by inject<AdmobPreLoadNativeAds>()
     val admobInterstitialAds by inject<AdmobInterstitialAds>()
     val collapseObserverViewModel by inject<CollapseObserverViewModel>()
+
+    val admobCollapseBannerAds by inject<AdmobCollapseBannerAds>()
  //   val admobOpenApp by inject<AdmobOpenApp>()
 
 }

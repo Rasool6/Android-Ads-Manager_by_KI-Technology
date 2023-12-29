@@ -6,6 +6,8 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+
+
     <LinearLayout
         android:id="@+id/adContainer"
         android:layout_width="match_parent"

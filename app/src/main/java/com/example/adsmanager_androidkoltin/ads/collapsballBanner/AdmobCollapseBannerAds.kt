@@ -7,7 +7,9 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.adsmanager_androidkoltin.ads.Constants.AD_TAG_BANNER
 import com.google.ads.mediation.admob.AdMobAdapter
 import com.google.android.gms.ads.*
 
@@ -15,17 +17,16 @@ class AdmobCollapseBannerAds {
 
     private var adaptiveAdView: AdView? = null
 
-    private val AD_TAG = "AdsInformation"
 
     @SuppressLint("VisibleForTests")
     fun loadCollapseBannerAds(
         activity: Activity?,
-        adsPlaceHolder: FrameLayout,
+        adsPlaceHolder: LinearLayout,
         admobAdaptiveIds: String,
         adEnable: Int,
         isAppPurchased: Boolean,
         collapsibleType: CollapsibleType = CollapsibleType.NONE,
-        isInternetConnected : Boolean,
+        isInternetConnected: Boolean,
         bannerCallBack: BannerCallBack
     ) {
         activity?.let { mActivity ->
@@ -64,43 +65,43 @@ class AdmobCollapseBannerAds {
                         adaptiveAdView?.loadAd(adRequest)
                         adaptiveAdView?.adListener = object : AdListener() {
                             override fun onAdLoaded() {
-                                Log.d(AD_TAG, "admob banner onAdLoaded")
+                                Log.d(AD_TAG_BANNER, "collapse admob banner onAdLoaded")
                                 displayBannerAd(adsPlaceHolder)
                                 bannerCallBack.onAdLoaded()
                             }
 
                             override fun onAdFailedToLoad(adError: LoadAdError) {
-                                Log.e(AD_TAG, "admob banner onAdFailedToLoad")
+                                Log.e(AD_TAG_BANNER, "collapse admob banner onAdFailedToLoad")
                                 adsPlaceHolder.visibility = View.GONE
                                 bannerCallBack.onAdFailedToLoad(adError.message)
                             }
 
                             override fun onAdImpression() {
-                                Log.d(AD_TAG, "admob banner onAdImpression")
+                                Log.d(AD_TAG_BANNER, "collapse admob banner onAdImpression")
                                 bannerCallBack.onAdImpression()
                                 super.onAdImpression()
                             }
 
                             override fun onAdClicked() {
-                                Log.d(AD_TAG, "admob banner onAdClicked")
+                                Log.d(AD_TAG_BANNER, "collapse admob banner onAdClicked")
                                 bannerCallBack.onAdClicked()
                                 super.onAdClicked()
                             }
 
                             override fun onAdClosed() {
-                                Log.d(AD_TAG, "admob banner onAdClosed")
+                                Log.d(AD_TAG_BANNER, "collapse admob banner onAdClosed")
                                 bannerCallBack.onAdClosed()
                                 super.onAdClosed()
                             }
 
                             override fun onAdOpened() {
-                                Log.d(AD_TAG, "admob banner onAdOpened")
+                                Log.d(AD_TAG_BANNER, "collapse admob banner onAdOpened")
                                 bannerCallBack.onAdOpened()
                                 super.onAdOpened()
                             }
 
                             override fun onAdSwipeGestureClicked() {
-                                Log.d(AD_TAG, "admob banner onAdSwipeGestureClicked")
+                                Log.d(AD_TAG_BANNER, "collapse admob banner onAdSwipeGestureClicked")
                                 bannerCallBack.onAdSwipeGestureClicked()
                                 super.onAdSwipeGestureClicked()
                             }
@@ -109,8 +110,8 @@ class AdmobCollapseBannerAds {
                 } else {
                     adsPlaceHolder.removeAllViews()
                     adsPlaceHolder.visibility = View.GONE
-                    Log.e(AD_TAG, "adEnable = $adEnable, isAppPurchased = $isAppPurchased ")
-//                    Log.e(AD_TAG, "adEnable = $adEnable, isAppPurchased = $isAppPurchased, isInternetConnected = $isInternetConnected")
+                    Log.e(AD_TAG_BANNER, "adEnable = $adEnable, isAppPurchased = $isAppPurchased ")
+//                    Log.e(AD_TAG_BANNER, "adEnable = $adEnable, isAppPurchased = $isAppPurchased, isInternetConnected = $isInternetConnected")
 //                  bannerCallBack.onAdFailedToLoad("adEnable = $adEnable, isAppPurchased = $isAppPurchased, isInternetConnected = $isInternetConnected")
                     bannerCallBack.onAdFailedToLoad("adEnable = $adEnable, isAppPurchased = $isAppPurchased")
 
@@ -118,14 +119,14 @@ class AdmobCollapseBannerAds {
             } catch (ex: Exception) {
                 adsPlaceHolder.removeAllViews()
                 adsPlaceHolder.visibility = View.GONE
-                Log.e(AD_TAG, "${ex.message}")
+                Log.e(AD_TAG_BANNER, "${ex.message}")
                 bannerCallBack.onAdFailedToLoad("${ex.message}")
             }
         }
 
     }
 
-    private fun displayBannerAd(adsPlaceHolder: FrameLayout) {
+    private fun displayBannerAd(adsPlaceHolder: LinearLayout) {
         try {
             if (adaptiveAdView != null) {
                 val viewGroup: ViewGroup? = adaptiveAdView?.parent as ViewGroup?
@@ -138,7 +139,7 @@ class AdmobCollapseBannerAds {
                 adsPlaceHolder.visibility = View.GONE
             }
         } catch (ex: Exception) {
-            Log.e(AD_TAG, "inflateBannerAd: ${ex.message}")
+            Log.e(AD_TAG_BANNER, "collapse inflateBannerAd: ${ex.message}")
         }
 
     }
@@ -147,7 +148,7 @@ class AdmobCollapseBannerAds {
         try {
             adaptiveAdView?.pause()
         } catch (ex: Exception) {
-            Log.e(AD_TAG, "bannerOnPause: ${ex.message}")
+            Log.e(AD_TAG_BANNER, "collapse bannerOnPause: ${ex.message}")
         }
 
     }
@@ -156,7 +157,7 @@ class AdmobCollapseBannerAds {
         try {
             adaptiveAdView?.resume()
         } catch (ex: Exception) {
-            Log.e(AD_TAG, "bannerOnPause: ${ex.message}")
+            Log.e(AD_TAG_BANNER, "collapse bannerOnPause: ${ex.message}")
         }
     }
 
@@ -165,11 +166,11 @@ class AdmobCollapseBannerAds {
             adaptiveAdView?.destroy()
             adaptiveAdView = null
         } catch (ex: Exception) {
-            Log.e(AD_TAG, "bannerOnPause: ${ex.message}")
+            Log.e(AD_TAG_BANNER, "collapse bannerOnPause: ${ex.message}")
         }
     }
 
-    private fun getAdSize(mActivity: Activity, adContainer: FrameLayout): AdSize {
+    private fun getAdSize(mActivity: Activity, adContainer: LinearLayout): AdSize {
         val display = mActivity.windowManager.defaultDisplay
         val outMetrics = DisplayMetrics()
         display.getMetrics(outMetrics)

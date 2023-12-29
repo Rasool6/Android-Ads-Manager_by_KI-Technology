@@ -2,6 +2,7 @@ package com.example.adsmanager_androidkoltin.koin
 
 import android.content.Context
 import android.net.ConnectivityManager
+import com.example.adsmanager_androidkoltin.ads.collapsballBanner.AdmobCollapseBannerAds
 import com.example.adsmanager_androidkoltin.ads.nativeAds.AdmobNativeAds
 import com.example.adsmanager_androidkoltin.ads.interstitialAdsWork.AdmobInterstitialAds
 import com.example.adsmanager_androidkoltin.ads.vvm.CollapseObserverViewModel
@@ -20,6 +21,7 @@ private val adsModule = module {
      single { InterstitialViewModel() }
      single { AdmobNativeAds() }
      single { CollapseObserverViewModel() }
+     single { AdmobCollapseBannerAds() }
 
 }
 

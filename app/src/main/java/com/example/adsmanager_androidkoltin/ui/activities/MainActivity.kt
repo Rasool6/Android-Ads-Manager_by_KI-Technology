@@ -7,6 +7,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.adsmanager_androidkoltin.R
 import com.example.adsmanager_androidkoltin.ads.Constants.ADS_TAG
 import com.example.adsmanager_androidkoltin.ads.Constants.checkShowAppOpenAd
 import com.example.adsmanager_androidkoltin.ads.Constants.isAdsPurchased
@@ -158,4 +159,6 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+
 }

@@ -2,15 +2,15 @@ package com.example.adsmanager_androidkoltin.ui.frg
 
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.adsmanager_androidkoltin.R
 import com.example.adsmanager_androidkoltin.ads.Constants
-import com.example.adsmanager_androidkoltin.ads.Constants.visited
+import com.example.adsmanager_androidkoltin.ads.bannerAds.AdmobBannerAd
+import com.example.adsmanager_androidkoltin.ads.bannerAds.AdmobBannerAd.bannerOnDestroy
 import com.example.adsmanager_androidkoltin.ads.collapsballBanner.AdmobCollapseBannerAds
 import com.example.adsmanager_androidkoltin.ads.collapsballBanner.BannerCallBack
 import com.example.adsmanager_androidkoltin.ads.collapsballBanner.CollapsibleType
@@ -27,7 +27,11 @@ class CollapsBannerAdsFragment : Fragment() {
     private val admobCollapseBannerAds by lazy { AdmobCollapseBannerAds() }
     private val adsObserver = SingleLiveEvent<Boolean>()
     private var isCollapsibleOpen = false
-    private val handler = Handler()
+
+     companion object{
+         val handler = Handler()
+         var next_ads_time=15000
+     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,16 +62,18 @@ class CollapsBannerAdsFragment : Fragment() {
                     loadCollapseBanner()
                 }
                 "no" -> {
-                    loadCollapseBanner()
+                    loadBannerAd()
                 }
                 "stopeLoading" -> {
                     Log.d("collapseAdTag", "onViewCreated: stop loading when go to next or back to screen")
                     handler.removeCallbacksAndMessages(null)
                 }
-                "yes" -> {
+                "close" -> {
+                    loadBannerAd()
                     handler.postDelayed({
+                        bannerOnDestroy()
                         loadCollapseBanner()
-                    }, 4000) // 4000 milliseconds = 4 seconds
+                    }, 15000/*120000*/) // 120000 milliseconds = 120 seconds
                 }
             }
         }
@@ -76,10 +82,8 @@ class CollapsBannerAdsFragment : Fragment() {
     }
 
 
-    override fun onPause() {
-        super.onPause()
-        DIComponent.collapseObserverViewModel.setBannerLoadingState("stopeLoading")
-    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -93,7 +97,7 @@ class CollapsBannerAdsFragment : Fragment() {
 
         admobCollapseBannerAds.loadCollapseBannerAds(
             requireActivity(),
-            binding.adsBannerPlaceHolder,
+            binding.bannerAd.adContainer,
             getString(R.string.admob_banner_collapse_id),
             1,// default enable vale i kept 1
             false,//PrefManager.instance.getIsAppPurchased(this),
@@ -107,6 +111,7 @@ class CollapsBannerAdsFragment : Fragment() {
 
                 override fun onAdLoaded() {
                     //  Constants.visited="yes"
+
                 }
 
                 override fun onAdImpression() {}
@@ -116,8 +121,8 @@ class CollapsBannerAdsFragment : Fragment() {
                 override fun onAdClosed() {
                     isCollapsibleOpen = false
                     Constants.visited = "yes"
-                    DIComponent.collapseObserverViewModel.setBannerLoadingState("yes")
-
+                    DIComponent.collapseObserverViewModel.setBannerLoadingState("close")
+                    admobCollapseBannerAds.bannerOnDestroy()
 //                    if (isBackPressed){
 //                        adsObserver.value = true
 //                    }
@@ -129,4 +134,42 @@ class CollapsBannerAdsFragment : Fragment() {
             }
         )
     }
+
+
+    private fun loadBannerAd() {
+
+        if (!Constants.isAdsPurchased) {
+            AdmobBannerAd.loadBannerAdMob(
+                binding.bannerAd.adContainer,
+                binding.bannerID,
+                requireContext()
+            )
+        } else {
+            binding.bannerID.visibility = View.GONE
+        }
+
+
+    }
+
+
+    override fun onPause() {
+        admobCollapseBannerAds.bannerOnPause()
+        DIComponent.collapseObserverViewModel.setBannerLoadingState("stopeLoading")
+        super.onPause()
+
+    }
+
+  /*  override fun onResume() {
+        admobCollapseBannerAds.bannerOnResume()
+        super.onResume()
+    }
+*/
+
+    override fun onDestroy() {
+        admobCollapseBannerAds. bannerOnDestroy()
+        bannerOnDestroy()
+        super.onDestroy()
+    }
+
+
 }

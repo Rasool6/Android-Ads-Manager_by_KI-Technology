@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.frg.CollapsBannerAdsFragment">
 
-    <FrameLayout
+  <!--  <FrameLayout
         android:id="@+id/ads_banner_place_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:maxHeight="70dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="70dp"
@@ -21,7 +22,21 @@
             layout="@layout/loading_ad"
             android:layout_width="match_parent"
             android:layout_height="70dp" />
-    </FrameLayout>
+    </FrameLayout>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bannerID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <include
+            android:id="@+id/bannerAd"
+            layout="@layout/admob_bannar_ad_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

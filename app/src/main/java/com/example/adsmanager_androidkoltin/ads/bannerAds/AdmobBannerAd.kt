@@ -8,10 +8,11 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.adsmanager_androidkoltin.R
-import com.example.adsmanager_androidkoltin.ads.Constants.ADS_TAG
+import com.example.adsmanager_androidkoltin.ads.Constants.AD_TAG_BANNER
 import com.google.android.gms.ads.*
 
 object AdmobBannerAd {
+    private var mAdView: AdView? = null
 
     fun loadBannerAdMob(
         adContainer: LinearLayout,
@@ -19,18 +20,19 @@ object AdmobBannerAd {
         context: Context?,
     ) {
 
-        val mAdView = AdView(context!!)
-        (context as Activity?)?.let { getAdSize(context) }?.let { mAdView.setAdSize(it) }
-        mAdView.adUnitId = context.getString(R.string.admob_banner_home_ids)
+         mAdView = AdView(context!!)
+        mAdView?.destroy()
+        (context as Activity?)?.let { getAdSize(context) }?.let { mAdView!!.setAdSize(it) }
+        mAdView?.adUnitId = context.getString(R.string.admob_banner_home_ids)
         try {
-            mAdView.loadAd(AdRequest.Builder().build())
+            mAdView?.loadAd(AdRequest.Builder().build())
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        mAdView.adListener = object : AdListener() {
+        mAdView?.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 super.onAdLoaded()
-                Log.i(ADS_TAG, "AdmobBanner onAdLoaded")
+                Log.i(AD_TAG_BANNER, "AdmobBanner onAdLoaded")
                 view.visibility = View.VISIBLE
                 try {
                     adContainer.removeAllViews()
@@ -42,14 +44,21 @@ object AdmobBannerAd {
 
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
-                mAdView.destroy()
+                mAdView?.destroy()
                 view.visibility = View.GONE
-                Log.i(ADS_TAG, "AdmobBanner onAdFailedToLoad")
+                Log.i(AD_TAG_BANNER, "AdmobBanner onAdFailedToLoad")
             }
         }
     }
 
-
+    fun bannerOnDestroy() {
+        try {
+            mAdView?.destroy()
+            mAdView = null
+        } catch (ex: Exception) {
+            Log.e(AD_TAG_BANNER, "bannerOnPause: ${ex.message}")
+        }
+    }
     private fun getAdSize(context: Activity): AdSize {
         val display = context.windowManager.defaultDisplay
         val outMetrics = DisplayMetrics()
