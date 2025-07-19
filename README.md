@@ -1,4 +1,4 @@
-# Android-Ads-Manager_by_KI-Technology
+# Admob Ads-Manager
 
 Android Ads Manager by KI Technology
 
