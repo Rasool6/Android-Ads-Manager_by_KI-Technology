@@ -1,6 +1,6 @@
 # Admob Ads-Manager
 
-Android Ads Manager by KI Technology
+Android Ads Manager
 
 a)  Admob Interestitial ads
     1)  implemention done for next to Activity
